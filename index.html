@@ -68,7 +68,44 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
   <script>
-    // Create the map centered on Nottingham
+    // Nottingham City boundary (simplified GeoJSON)
+    const nottinghamCityBoundary = {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-1.231, 52.990],
+          [-1.230, 52.985],
+          [-1.225, 52.980],
+          [-1.220, 52.975],
+          [-1.210, 52.970],
+          [-1.200, 52.965],
+          [-1.190, 52.960],
+          [-1.180, 52.955],
+          [-1.170, 52.950],
+          [-1.160, 52.945],
+          [-1.150, 52.940],
+          [-1.145, 52.935],
+          [-1.150, 52.930],
+          [-1.160, 52.925],
+          [-1.170, 52.920],
+          [-1.180, 52.918],
+          [-1.190, 52.917],
+          [-1.200, 52.918],
+          [-1.210, 52.920],
+          [-1.220, 52.925],
+          [-1.230, 52.930],
+          [-1.235, 52.940],
+          [-1.238, 52.950],
+          [-1.239, 52.960],
+          [-1.238, 52.970],
+          [-1.235, 52.980],
+          [-1.231, 52.990]
+        ]]
+      }
+    };
+
+    // Create the map centered on Nottinghamshire
     const map = L.map("map", {
       zoomControl: false,
       minZoom: 10,
@@ -84,7 +121,7 @@
     // Restrict map movement
     map.setMaxBounds(bounds);
 
-    // Mapbox tiles (INSERT YOUR TOKEN BELOW)
+    // Mapbox tiles (PUT YOUR TOKEN BELOW)
     L.tileLayer(
       "https://api.mapbox.com/styles/v1/mapbox/light-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYnJhbmNvbmluZSIsImEiOiJjbW10bXVidW4xbGI2MnRxdDRpMGN4MGZ0In0.fpixBJ5sOrCvYDpyZAehEw",
       {
@@ -99,6 +136,15 @@
       color: "#000",
       opacity: 0.6,
       fillOpacity: 0.6
+    }).addTo(map);
+
+    // Draw the Nottingham City boundary line
+    L.geoJSON(nottinghamCityBoundary, {
+      style: {
+        color: "#ff0000",   // red outline
+        weight: 3,
+        opacity: 0.9
+      }
     }).addTo(map);
 
     // Example pin
