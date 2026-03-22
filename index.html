@@ -9,7 +9,7 @@
   <style>
     body {
       margin: 0;
-      background: white; /* WHITE BACKGROUND */
+      background: white;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -17,18 +17,16 @@
     }
 
     /* Circular map container */
-  #map {
-  width: 90vw;
-  height: 90vw;
-  max-width: 600px;
-  max-height: 600px;
-  border-radius: 50%;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 0 40px rgba(233, 198, 198, 0.8);
-}
-
-
+    #map {
+      width: 90vw;
+      height: 90vw;
+      max-width: 600px;
+      max-height: 600px;
+      border-radius: 50%;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 40px rgba(233, 198, 198, 0.8);
+    }
 
     /* Dark overlay outside the circle */
     #map::after {
@@ -62,8 +60,8 @@
     }).setView([52.95, -1.15], 12);
 
     /* LIMIT ZOOM OUT TO ONE SCROLL */
-    const minZoom = 11;   // one step below 12
-    const maxZoom = 18;   // zoom in as far as Mapbox allows
+    const minZoom = 11;
+    const maxZoom = 18;
 
     map.setMinZoom(minZoom);
     map.setMaxZoom(maxZoom);
@@ -79,6 +77,124 @@
         maxZoom: maxZoom
       }
     ).addTo(map);
+
+
+
+    /* ---------------------------------------------------------
+       INSERTED CODE STARTS HERE
+    --------------------------------------------------------- */
+
+    /* Small coloured icons */
+    const iconUoN = L.icon({
+      iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png",
+      iconSize: [20, 32],
+      iconAnchor: [10, 32],
+      popupAnchor: [0, -28]
+    });
+
+    const iconNTU = L.icon({
+      iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-violet.png",
+      iconSize: [20, 32],
+      iconAnchor: [10, 32],
+      popupAnchor: [0, -28]
+    });
+
+    const iconOther = L.icon({
+      iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png",
+      iconSize: [20, 32],
+      iconAnchor: [10, 32],
+      popupAnchor: [0, -28]
+    });
+
+
+/* Full dataset (PBSA + private merged into "other") */
+const data = {
+
+ other: [
+  { name: "Vita Student Station Street", lat: 52.948067, lng: -1.145913 },
+  { name: "IQ Nelson COurt", lat: 52.95337695552306, lng: -1.1386365875835756 },
+  { name: "iQ Exchange", lat: 52.95405690898164, lng: -1.1393253974687443 },
+  { name: "iQ Newtown House", lat: 52.95178609038893, lng: -1.1530807346671725 },
+  { name: "iQ Newland House", lat: 52.95256295816768, lng: -1.1544241949679244 },
+  { name: "iQ Signal Place", lat: 52.94558661096004, lng: -1.1500123311127914 },
+  {name: "Six Degrees", lat: 52.95806590688865, lng: -1.1439248620773985},
+  { name: "Student Roost Nottingham Two", lat: 52.95614561374633, lng: -1.1822382887834932 },
+  { name: "Student Roost Morriss House", lat: 52.949197328869985, lng: -1.180699559224133 },
+  { name: "Student Roost York House", lat: 52.958418237005155, lng: -1.1489143790957579 },
+  { name: "Student Roost Hydrogen", lat: 52.95534903540512, lng: -1.1523196928870072 },
+  { name: "Prestige Straits Village", lat: 52.95912877335624, lng: -1.1465836566375904 },
+  { name: "Prestige Crown Place", lat: 52.95732195621937, lng: -1.142811697127529 },
+  { name: "The Place (Prestige Student Living)", lat: 52.94684700466388, lng: -1.1411853260508145 },
+{name: "Sandhills", lat: 52.95606087935737, lng:  -1.1584802965887808},
+  { name: "The Nest", lat: 52.95572600978836, lng: -1.159986296662598 },
+  { name: "The Laceworks", lat: 52.94625246756589, lng: -1.14285079263569 },
+  { name: "The Glasshouse", lat: 52.9582063624899, lng: -1.1456192767632603 },
+
+  { name: "Study Inn Triumph House", lat: 52.94853761040147, lng: -1.182776310534892 },
+  { name: "Study Inn Talbot Street", lat: 52.956178456563144, lng: -1.157182050409733 },
+
+  { name: "Nova", lat: 52.95588588233813, lng: -1.157168998538322 },
+  { name: "Flow Student Clarendon Street", lat: 52.955820784134815, lng: -1.1563996511860855 },
+
+  { name: "Bowman House", lat: 52.95634608416098, lng: -1.158208679979665 },
+  { name: "Miura (Prestige Student Living)", lat: 52.9579344138771, lng: -1.1437320632685422 },
+  { name: "The Rise", lat: 52.9595211910731, lng: -1.1647400874563882 },
+
+  { name: "Radford Mill", lat: 52.95595450312329, lng: -1.1711326050586948 },
+  { name: "Homes for Students Nottingham Square", lat: 52.95868302821526, lng: -1.163820809418755 },
+
+  { name: "Talbot Point", lat: 52.95603839297183, lng: -1.160272707730894 },
+  { name: "Talbot Studios", lat: 52.956398446081, lng: -1.1596940315732043 }
+],
+
+
+  university_of_nottingham_halls: [
+   { name: "Willoughby Hall", lat: 52.93546344638445, lng: -1.2049361904759777 },
+{ name: "Sherwood Hall", lat: 52.94089370944589, lng: -1.204538173230984 },
+{ name: "Rutland Hall", lat: 52.94030181334908, lng: -1.204068263031566 },
+{ name: "Nightingale Hall", lat: 52.9374613273306, lng: -1.2066749514940138 },
+{ name: "Lincoln Hall", lat: 52.94219629645456, lng: -1.199036208003513 },
+{ name: "Lenton & Wortley Hall", lat: 52.94339021895276, lng: -1.1992936042768954 },
+{ name: "Hugh Stewart Hall", lat: 52.94054202974564, lng: -1.1961650433818751 },
+{ name: "Melton Hall", lat: 52.95483560452451, lng: -1.1907099853420762 },
+{ name: "Newark Hall", lat: 52.952900040936164, lng: -1.1857692148753054 },
+{ name: "Southwell Hall", lat: 52.95336369231079, lng: -1.1859912121416682 },
+{ name: "Saint Michaels Flats", lat: 52.82524860548928, lng: -1.2509004908634407 },
+{ name: "Bonington Hall", lat: 52.823900, lng: -1.249900 }
+  ],
+
+ nottingham_trent_halls: [
+  { name: "Byron Residence", lat: 52.958537813824485, lng: -1.1550429206843953 },
+{ name: "Gill Street", lat: 52.96003936837244, lng: -1.1539221728185294 },
+{ name: "Sandby Hall", lat: 52.95931327884093, lng: -1.1555654668856619 },
+{ name: "New Hall", lat: 52.91164055377459, lng: -1.1831183731822668 },
+{ name: "Peverell", lat: 52.911003834029614, lng: -1.1820327401182695 },
+{ name: "Meridian Court", lat: 52.98099655119657, lng: -1.1630563155205322 },
+{ name: "Norton Court", lat: 52.96078115237067, lng: -1.176260638748087 },
+{ name: "Simpsons Halls", lat: 52.950349517862996, lng: -1.1717445252007517 },
+{ name: "Brackenhurst Halls", lat: 53.06441346847497, lng: -0.9629715309025272 },
+{ name: "The Maltings", lat: 52.98035798303147, lng: -1.1818152955788912 }
+]
+};
+
+/* Add markers */
+function addCategory(list, icon) {
+  list.forEach(p => {
+    L.marker([p.lat, p.lng], { icon })
+      .addTo(map)
+      .bindPopup(`<b>${p.name}</b>`);
+  });
+}
+
+addCategory(data.other, iconOther);
+addCategory(data.university_of_nottingham_halls, iconUoN);
+addCategory(data.nottingham_trent_halls, iconNTU);
+
+
+    /* ---------------------------------------------------------
+       INSERTED CODE ENDS HERE
+    --------------------------------------------------------- */
+
   </script>
 </body>
 </html>
