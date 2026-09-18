@@ -1,0 +1,380 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#142d30"><title>Nottingham Student Living Map</title><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"><link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"><link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css"><style>
+:root{color-scheme:light;--ink:#142d30;--muted:#526564;--line:#dbe3df;--paper:#f4f6f1;--accent:#bdf18b}*{box-sizing:border-box}body{margin:0;font:14px/1.5 system-ui,-apple-system,sans-serif;color:var(--ink);background:var(--paper)}button,input,select{font:inherit}button,a,input,select{-webkit-tap-highlight-color:transparent}button{cursor:pointer}button:disabled{opacity:.5;cursor:default}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #956100;outline-offset:3px}[hidden]{display:none!important}#page{height:100vh;height:100dvh;display:flex;flex-direction:column;overflow:hidden}header{background:var(--ink);color:white;padding:14px max(20px,env(safe-area-inset-right)) 14px max(20px,env(safe-area-inset-left));display:flex;justify-content:space-between;align-items:center;gap:16px}.brand{font-family:Georgia,serif;font-size:23px;line-height:1.15}.brand small{display:block;font:10px/1.5 system-ui;letter-spacing:2px;color:#c5d7d0;margin-top:5px}.tabs{display:flex;gap:6px}.tab{min-height:44px;background:transparent;color:#d9e5df;border:1px solid #637775;border-radius:24px;padding:9px 20px}.tab[aria-selected=true]{background:var(--accent);border-color:var(--accent);color:var(--ink)}main{flex:1;min-height:0;position:relative}.panel{height:100%;display:flex}.sidebar{width:350px;flex-shrink:0;background:white;border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0}.intro{padding:22px 22px 12px}.eyebrow{font-size:10px;letter-spacing:1.7px;font-weight:700;text-transform:uppercase;color:var(--muted)}h1,h2{font:normal 29px/1.2 Georgia,serif;margin:6px 0 8px}.intro p{margin:0;color:var(--muted);font-size:13px}.search{padding:8px 22px 14px;border-bottom:1px solid var(--line)}.search label{display:block;font-size:12px;font-weight:600;margin-bottom:6px}.search-row{display:flex;gap:5px}.search input{min-width:0;width:100%;background:var(--paper);border:1px solid #aabcb4;border-radius:9px;padding:11px;font-size:16px}.clear{border:1px solid var(--line);border-radius:9px;background:white;padding:8px}.scope{width:100%;min-height:44px;margin-top:10px;border:1px solid #aabcb4;border-radius:8px;background:white;padding:8px}.summary{padding:12px 22px;font-size:12px;color:var(--muted)}.list{overflow:auto;flex:1;overscroll-behavior:contain}.group{border-top:1px solid var(--line)}.group-head{display:flex;align-items:center;padding:5px 14px;gap:6px}.group-head label{min-width:44px;min-height:44px;display:flex;justify-content:center;align-items:center}.group-head input{width:19px;height:19px;accent-color:var(--ink)}.group-head button{display:flex;align-items:center;gap:8px;flex:1;text-align:left;background:none;border:0;min-height:44px;color:var(--ink);font-weight:600}.swatch{width:10px;height:10px;border-radius:50%;flex-shrink:0}.count{margin-left:auto;font-size:11px;background:var(--paper);padding:3px 7px;border-radius:12px}.places{list-style:none;padding:0 14px 10px;margin:0}.place{width:100%;text-align:left;border:0;background:none;color:#334e4d;border-radius:8px;min-height:44px;padding:10px 14px;font-size:13px}.place:hover,.place.selected{background:#e9f2e3;color:#142d30}.place small{display:block;font-size:11px;color:var(--muted)}.note{font-size:12px;color:var(--muted);padding:16px 22px;border-top:1px solid var(--line)}.note summary{cursor:pointer;min-height:28px}.empty{padding:24px;color:var(--muted)}.map-area{flex:1;min-width:0;position:relative;display:flex;flex-direction:column;padding:20px 24px 10px;background:radial-gradient(ellipse at center,#e6ece0 0,#f4f6f1 70%)}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:8px}.button{min-height:44px;border:1px solid #b8c8be;background:white;color:var(--ink);border-radius:10px;padding:9px 14px;box-shadow:0 2px 5px #142d3008}.button[aria-pressed=true]{background:var(--accent)}.map-caption{font-size:11px;letter-spacing:1.3px;color:var(--muted);text-transform:uppercase}.stage{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;position:relative;padding:12px 0}.map{border-radius:50%;border:5px solid white;box-shadow:0 12px 45px #18383120;isolation:isolate;background:#e4e9e2;flex-shrink:0}.actions{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}.zoom{position:absolute;right:0;top:50%;display:flex;flex-direction:column;gap:5px}.zoom button{width:44px;padding:0;font-size:22px}.attribution{text-align:center;font-size:10px;color:var(--muted);padding:10px 0 max(0px,env(safe-area-inset-bottom))}.attribution a{color:inherit}.status{font-size:12px;text-align:center;min-height:24px;padding:5px;color:var(--muted)}.close{display:none}.backdrop{display:none}.leaflet-popup-content{font:13px/1.5 system-ui;color:var(--ink)}.leaflet-popup-content b{font:600 17px/1.25 system-ui}.leaflet-popup-content a{display:inline-block;padding:8px 0;color:#075d78}.leaflet-popup-close-button{min-width:32px;min-height:32px}.pin{width:24px;height:24px;border:3px solid white;border-radius:50%;box-shadow:0 2px 5px #0005}.pin.move{padding:4px}.pin.move:after{content:'';display:block;width:100%;height:100%;background:white;border-radius:50%}.cluster{display:grid;place-items:center;background:#142d30;color:white;border:3px solid white;border-radius:50%;width:36px;height:36px;font-weight:700}.skip{position:absolute;top:-100px;left:10px;z-index:10000;background:white;padding:10px}.skip:focus{top:10px}.error{margin:auto;padding:24px;text-align:center;max-width:300px}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+@media(max-width:760px){header{padding-top:max(10px,env(safe-area-inset-top));display:block}.brand{font-size:21px}.brand small{display:none}.tabs{margin-top:12px}.tab{flex:1;padding:8px 10px;font-size:13px}.map-area{padding:12px 14px 4px}.map-caption{font-size:9px}.sidebar{position:absolute;inset:0 auto 0 0;width:min(360px,calc(100% - 32px));z-index:1002;box-shadow:10px 0 40px #0003}.sidebar[hidden]{display:none!important}.backdrop:not([hidden]){display:block;position:absolute;inset:0;z-index:1001;border:0;background:#142d3070}.close{display:block;float:right;width:44px;height:44px;border:1px solid var(--line);border-radius:9px;background:white;font-size:22px}.intro{padding-top:16px}.zoom{right:0}.actions .button{font-size:12px;padding:9px 11px}.status{font-size:11px}.map{border-width:4px}.note{padding:12px 22px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media(max-width:760px){.tabs{overflow-x:auto;padding-bottom:3px}.tab{flex:0 0 auto;white-space:nowrap}}
+
+/* Phone layout: full canvas map and a reachable bottom sheet. */
+@media(max-width:760px){
+header{padding:12px max(16px,env(safe-area-inset-right)) 10px max(16px,env(safe-area-inset-left))}.brand{font:600 19px/1.2 system-ui}.tabs{margin-top:10px;gap:6px;overflow:visible}.tab{flex:1;min-width:0;white-space:normal;font-size:13px;min-height:44px;border-radius:12px;padding:8px}
+.map-area{padding:0;background:#e4e9e2}.stage{position:absolute;inset:0;padding:0;display:block}.map{width:100%!important;height:100%!important;border:0;border-radius:0;box-shadow:none}.toolbar{position:absolute;top:12px;left:12px;right:12px;z-index:800;pointer-events:none}.toolbar .toggle{pointer-events:auto;min-height:48px;font-weight:600;border:0;box-shadow:0 3px 16px #142d3026}.map-caption{display:none}.zoom{right:12px;top:auto;bottom:calc(122px + env(safe-area-inset-bottom));z-index:800}.zoom .button{height:46px;width:46px;border:0;box-shadow:0 3px 14px #142d3026}.actions{position:absolute;bottom:calc(34px + env(safe-area-inset-bottom));left:12px;right:12px;z-index:800;display:flex;flex-wrap:nowrap;gap:8px}.actions .button{flex:1;min-height:50px;font-size:14px;font-weight:600;border:0;box-shadow:0 3px 16px #142d3026}.actions .locate{flex:0 1 45%}.status{position:absolute;top:70px;left:12px;right:12px;z-index:800;padding:0;min-height:0;border-radius:10px;background:#fffffff2;box-shadow:0 2px 10px #142d3010}.status:not(:empty){padding:9px 12px;font-size:12px}.attribution{position:absolute;bottom:0;left:0;right:0;z-index:800;background:#ffffffdb;padding:5px 8px max(5px,env(safe-area-inset-bottom));font-size:10px}
+.sidebar{inset:auto 0 0;width:100%;height: min(82%,720px);max-height:100%;border-radius:22px 22px 0 0;box-shadow:0 -8px 40px #142d3040;border:0;padding-bottom:env(safe-area-inset-bottom)}.sidebar:before{content:'';display:block;width:36px;height:4px;background:#bac8c0;border-radius:4px;margin:9px auto 0;flex-shrink:0}.intro{padding:8px 18px 6px;flex-shrink:0}.intro h1,.intro h2{font-size:23px;margin:3px 0 2px}.intro p{font-size:12px}.eyebrow{font-size:9px}.close{width:44px;height:44px;margin-left:8px}.search{padding:8px 18px 10px;flex-shrink:0}.search label{font-size:11px;margin-bottom:4px}.search input{min-height:46px}.summary{padding:8px 18px;flex-shrink:0}.group-head{padding:3px 12px}.place{min-height:48px;font-size:14px}.places{padding:0 10px 8px}.note{padding:9px 18px;max-height:28%;overflow:auto;flex-shrink:0}.note summary{min-height:30px}.backdrop:not([hidden]){background:#142d3055}.leaflet-popup-content{font-size:13px}.leaflet-popup-close-button{min-width:36px;min-height:36px}
+}
+@media(max-width:760px) and (max-height:520px){header{padding-top:6px;padding-bottom:6px}.brand{display:none}.tabs{margin:0}.sidebar{height:100%;border-radius:0}.intro p,.eyebrow{display:none}.intro{padding-top:4px}.intro h1{font-size:19px}.sidebar:before{display:none}.search{padding-top:2px}.search label{display:none}.note{display:none}.actions{left:60px;right:70px}.zoom{bottom:70px}}
+
+</style></head><body><a class="skip" href="#tabs">Skip to map tabs</a><div id="page"><header><div class="brand">Nottingham Student Living<small>FIND YOUR PLACE IN THE CITY</small></div><nav class="tabs" id="tabs" role="tablist" aria-label="Map views"><button class="tab" id="campus-tab" role="tab" aria-controls="campus" aria-selected="true">Campus map</button><button class="tab" id="uon-tab" role="tab" aria-controls="uon" aria-selected="false" tabindex="-1">UoN Move In Day</button></nav></header><main id="main"></main></div><noscript>This map needs JavaScript. Enable it to browse accommodation.</noscript><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script><script>
+'use strict';
+const data = {
+  other: [
+    { name: "Vita Student Station Street", lat: 52.948067, lng: -1.145913, capacity: 321 },
+    { name: "IQ Nelson Court", lat: 52.95337695552306, lng: -1.1386365875835756, capacity: 215 },
+    { name: "iQ Exchange", lat: 52.95405690898164, lng: -1.1393253974687443, capacity: 176 },
+    { name: "iQ Newtown House", lat: 52.95178609038893, lng: -1.1530807346671725 },
+    { name: "iQ Newland House", lat: 52.95256295816768, lng: -1.1544241949679244 },
+    { name: "iQ Signal Place", lat: 52.94558661096004, lng: -1.1500123311127914, capacity: 522 },
+    { name: "Six Degrees", lat: 52.95806590688865, lng: -1.1439248620773985, capacity: 58 },
+    { name: "Student Roost Nottingham Two", lat: 52.95614561374633, lng: -1.1822382887834932 },
+    { name: "Student Roost Morriss House", lat: 52.949197328869985, lng: -1.180699559224133, capacity: 705 },
+    { name: "Student Roost York House", lat: 52.958418237005155, lng: -1.1489143790957579, capacity: 472 },
+    { name: "Student Roost Hydrogen", lat: 52.95534903540512, lng: -1.1523196928870072 },
+    { name: "Prestige Straits Village", lat: 52.95912877335624, lng: -1.1465836566375904, capacity: 301 },
+    { name: "Prestige Crown Place", lat: 52.95732195621937, lng: -1.142811697127529, capacity: 426 },
+    { name: "The Place (Prestige Student Living)", lat: 52.94684700466388, lng: -1.1411853260508145 },
+    { name: "Sandhills", lat: 52.95606087935737, lng: -1.1584802965887808, capacity: 330 },
+    { name: "The Nest", lat: 52.95572600978836, lng: -1.159986296662598, capacity: 57 },
+    { name: "The Laceworks", lat: 52.94625246756589, lng: -1.14285079263569, capacity: 222 },
+    { name: "The Glasshouse", lat: 52.9582063624899, lng: -1.1456192767632603 },
+    { name: "Study Inn Triumph House", lat: 52.94853761040147, lng: -1.182776310534892, capacity: 270 },
+    { name: "Study Inn Talbot Street", lat: 52.956178456563144, lng: -1.157182050409733, capacity: 318 },
+    { name: "Nova", lat: 52.95588588233813, lng: -1.157168998538322 },
+    { name: "Flow Student Clarendon Street", lat: 52.955820784134815, lng: -1.1563996511860855 },
+    { name: "Bowman House", lat: 52.95634608416098, lng: -1.158208679979665 },
+    { name: "Miura (Prestige Student Living)", lat: 52.9579344138771, lng: -1.1437320632685422, capacity: 211 },
+    { name: "The Rise", lat: 52.9595211910731, lng: -1.1647400874563882, capacity: 124 },
+    { name: "Radford Mill", lat: 52.95595450312329, lng: -1.1711326050586948, capacity: 483 },
+    { name: "Homes for Students Nottingham Square", lat: 52.95868302821526, lng: -1.163820809418755 },
+    { name: "Talbot Point", lat: 52.95603839297183, lng: -1.160272707730894 },
+    { name: "Talbot Studios", lat: 52.956398446081, lng: -1.1596940315732043, capacity: 98 },
+    { name: "Student Lodge URB1 (62 Player Street)", lat: 52.96218287572257, lng: -1.176653183890032, capacity: "<25" },
+    { name: "Adam & Burton House (Student Lodge URB6)", lat: 52.961993, lng: -1.174997, capacity: 197 },
+    { name: "Carlton House (Student Lodge URB2)", lat: 52.961993, lng: -1.174997, capacity: "<25" },
+    { name: "Provident Works (Student Lodge URB12)", lat: 52.958656, lng: -1.164477, capacity: "<25" },
+    { name: "Arcadian", lat: 52.957309667258116, lng: -1.1452598298152776 },
+    { name: "Archer House", lat: 52.95132792729779, lng: -1.150275589739275 },
+    { name: "Avalon Court", lat: 52.95608604130292, lng: -1.1451256393989386, capacity: 69 },
+    { name: "Beckton House", lat: 52.92383701089531, lng: -1.2106747759962604 },
+    { name: "Bertrand Russell House", lat: 52.959275098374455, lng: -1.1660924541418827 },
+    { name: "Bromley Place Kaplan Living", lat: 52.95328397900345, lng: -1.1533026754293467, capacity: 268 },
+    { name: "Broadgate House Student Living", lat: 52.929848899019305, lng: -1.209816215413664 },
+    { name: "Carlton Building (Student Beehive)", lat: 52.95396888313338, lng: -1.1438263575420275, capacity: 31 },
+    { name: "Castle Gate Haus", lat: 52.95114232337774, lng: -1.1508505973896446 },
+    { name: "Centre Court", lat: 52.95821357424744, lng: -1.1668759513383788, capacity: 790 },
+    { name: "Corner Point", lat: 52.962323, lng: -1.150427, capacity: 212 },
+    { name: "Curzon House", lat: 52.95797728833156, lng: -1.1429542073860717, capacity: 598 },
+    { name: "Deakins Place", lat: 52.956709469316394, lng: -1.1818025954033646, capacity: 702 },
+    { name: "Fabric", lat: 52.955977744386594, lng: -1.1582060991792404, capacity: 323 },
+    { name: "Farthings", lat: 52.95314738675366, lng: -1.1822621230756536 },
+    { name: "Flewitt House", lat: 52.9276954188012, lng: -1.2090214353133908 },
+    { name: "Fusion Nottingham", lat: 52.95558293560037, lng: -1.1447105763501753, capacity: 552 },
+    { name: "Hockley Point (also listed as Mansion Place)", lat: 52.954624609670326, lng: -1.1394488866706587, capacity: 59 },
+    { name: "Iconinc Nottingham City", lat: 52.95292085955204, lng: -1.1525948236897958 },
+    { name: "Lace Market Studios", lat: 52.95293917801514, lng: -1.1410566728999119 },
+    { name: "Minerva House", lat: 52.95176262205565, lng: -1.1513642567171298 },
+    { name: "Mooregate House", lat: 52.92454495117131, lng: -1.2132074076223134 },
+    { name: "Graduation House", lat: 52.9215396, lng: -1.2232472 },
+    { name: "New Brook House / Student Lodge", lat: 52.96224026183727, lng: -1.1731321812292084, capacity: 93 },
+    { name: "Student Lodge URB10", lat: 52.96157193309163, lng: -1.1764903954761359, capacity: "<25" },
+    { name: "Acis Students: Raleigh Park", lat: 52.95476953006131, lng: -1.1818342845898762 },
+    { name: "Redgate", lat: 52.945818918135544, lng: -1.1513335364644421 },
+    { name: "Riverside Point", lat: 52.94980606972622, lng: -1.1805408463975937 },
+    { name: "Russell View", lat: 52.96007398334992, lng: -1.1663166885715714 },
+    { name: "St Peters Court", lat: 52.95855383766639, lng: -1.1826768763472697, capacity: 800 },
+    { name: "Stanley House", lat: 52.9560828061843, lng: -1.1552387091022722, capacity: 152 },
+    { name: "Student Hideout Market Square", lat: 52.953029779275006, lng: -1.1498059002204177 },
+    { name: "The Vantage", lat: 52.94549139264077, lng: -1.1524373698649895, capacity: 420 },
+    { name: "The Waterways", lat: 52.95451841834346, lng: -1.1403609036212496 },
+    { name: "Trinity Square", lat: 52.95657512643022, lng: -1.149457933245924 },
+    { name: "True Student", lat: 52.95642771473243, lng: -1.1420107221660143 },
+    { name: "Winfield Court", lat: 52.94993416172114, lng: -1.1353486687793668, capacity: 702 },
+    { name: "Yugo Goldsmith Court", lat: 52.95675420870233, lng: -1.1544048145617134 },
+    { name: "Bridgeside", lat: 52.95074271220049, lng: -1.1815538814017763 },
+    { name: "Maid Marian House", lat: 52.951237, lng: -1.152578, capacity: 121 },
+    { name: "The Frontage", lat: 52.954652, lng: -1.149996 },
+    { name: "Graystacks", lat: 52.946733, lng: -1.166611, capacity: 168 },
+    { name: "Cotton Mills (Cotton House)", lat: 52.95973, lng: -1.176633 },
+    { name: "Cloister House", lat: 52.941663, lng: -1.179401, capacity: 70 },
+    { name: "Albion House", lat: 52.930277, lng: -1.21638, capacity: 168 },
+    { name: "Dagfa House", lat: 52.932318, lng: -1.208038 },
+    { name: "Broadgate Park", lat: 52.933893, lng: -1.208232, capacity: 2400 },
+    { name: "Madison Gardens (Raleigh Park)", lat: 52.951591, lng: -1.181267 },
+    { name: "Medici", lat: 52.9538302, lng: -1.1411812, capacity: 129 },
+    { name: "Boulevard Wharf", lat: 52.9471671, lng: -1.1623575, capacity: 66 },
+    { name: "Dojo House", lat: 52.9554556, lng: -1.1778775, capacity: 41 },
+    { name: "Bendigo Building", lat: 52.9561842, lng: -1.1416762, capacity: 661 },
+    { name: "Campus Corner", lat: 52.955491, lng: -1.1769138, capacity: 176 },
+    { name: "KP House", lat: 52.9549144, lng: -1.1483654, capacity: 47 },
+    { name: "Orbital", lat: 52.9561034, lng: -1.1634376, capacity: 103 },
+    { name: "Commercial Point", lat: 52.9279566, lng: -1.2168163, capacity: 46 }
+  ],
+  university_of_nottingham_halls: [
+    { name: "Willoughby Hall", lat: 52.93546344638445, lng: -1.2049361904759777, capacity: 260 },
+    { name: "Sherwood Hall", lat: 52.94089370944589, lng: -1.204538173230984, capacity: 267 },
+    { name: "Rutland Hall", lat: 52.94030181334908, lng: -1.204068263031566, capacity: 284 },
+    { name: "Nightingale Hall", lat: 52.9374613273306, lng: -1.2066749514940138, capacity: 150 },
+    { name: "Lincoln Hall", lat: 52.94219629645456, lng: -1.199036208003513, capacity: 221 },
+    { name: "Lenton & Wortley Hall", lat: 52.94339021895276, lng: -1.1992936042768954, capacity: 283 },
+    { name: "Hugh Stewart Hall", lat: 52.94054202974564, lng: -1.1961650433818751, capacity: 340 },
+    { name: "Melton Hall", lat: 52.95483560452451, lng: -1.1907099853420762, capacity: 140 },
+    { name: "Newark Hall", lat: 52.952900040936164, lng: -1.1857692148753054, capacity: 400 },
+    { name: "Southwell Hall", lat: 52.95336369231079, lng: -1.1859912121416682, capacity: 200 },
+    { name: "Saint Michaels Flats", lat: 52.82524860548928, lng: -1.2509004908634407 },
+    { name: "Bonington Hall", lat: 52.823900, lng: -1.249900, capacity: 650 },
+    { name: "Eviton House (Sutton Bonington)", lat: 52.8314, lng: -1.2533 },
+    { name: "Ancaster Hall", lat: 52.9359, lng: -1.2077, capacity: 270 },
+    { name: "Cavendish Hall", lat: 52.9361, lng: -1.2055, capacity: 278 },
+    { name: "Cripps Hall", lat: 52.9419, lng: -1.1955, capacity: 368 },
+    { name: "Derby Hall", lat: 52.9416, lng: -1.2021, capacity: 300 },
+    { name: "Florence Boot Hall", lat: 52.9343, lng: -1.2019, capacity: 195 }
+  ],
+  nottingham_trent_halls: [
+    { name: "Byron Residence", lat: 52.958537813824485, lng: -1.1550429206843953, capacity: 559 },
+    { name: "Gill Street", lat: 52.96003936837244, lng: -1.1539221728185294, capacity: 798 },
+    { name: "Sandby Hall", lat: 52.95931327884093, lng: -1.1555654668856619, capacity: 199 },
+    { name: "New Hall", lat: 52.91164055377459, lng: -1.1831183731822668, capacity: 727 },
+    { name: "Peverell", lat: 52.911003834029614, lng: -1.1820327401182695, capacity: 772 },
+    { name: "Meridian Court", lat: 52.98099655119657, lng: -1.1630563155205322, capacity: 250 },
+    { name: "Norton Court", lat: 52.96078115237067, lng: -1.176260638748087, capacity: 312 },
+    { name: "Simpsons Halls", lat: 52.950349517862996, lng: -1.1717445252007517, capacity: 226 },
+    { name: "Brackenhurst Halls", lat: 53.06441346847497, lng: -0.9629715309025272 },
+    { name: "The Maltings", lat: 52.98035798303147, lng: -1.1818152955788912, capacity: 266 },
+    { name: "Varsity Beeston", lat: 52.93053962460897, lng: -1.2055042688625621 },
+    { name: "Hampden", lat: 52.958933, lng: -1.155346, capacity: 168 },
+    { name: "Blenheim", lat: 52.966259, lng: -1.146449, capacity: 177 },
+    { name: "College Drive Houses", lat: 52.911636, lng: -1.183151 }
+  ]
+};
+
+const categories = [
+  { key: "university_of_nottingham_halls", label: "University of Nottingham Halls", color: "#2e9e46", dotClass: "dot-uon", markerColor: "green" },
+  { key: "nottingham_trent_halls", label: "Nottingham Trent Halls", color: "#8e44ad", dotClass: "dot-ntu", markerColor: "violet" },
+  { key: "other", label: "PBSA & Private Halls", color: "#2e86de", dotClass: "dot-other", markerColor: "blue" }
+];
+
+const outreachGroups = [
+  {
+    key: "acts", label: "Acts – Talbot Street", color: "#f39c12",
+    names: ["Fabric", "Study Inn Talbot Street", "Nova", "Talbot Point", "Sandhills"]
+  },
+  {
+    key: "romans", label: "Romans", color: "#e63946",
+    names: ["The Place (Prestige Student Living)", "The Vantage", "Redgate", "The Laceworks"]
+  },
+  {
+    key: "megachurch", label: "Mega Church", color: "#8e44ad",
+    names: ["Prestige Crown Place", "Curzon House", "True Student", "The Glasshouse", "IQ Nelson Court", "iQ Exchange"]
+  },
+  {
+    key: "berea", label: "Berea & Timothy", color: "#2e86de",
+    names: [
+      "Centre Court", "Russell View",
+      "Student Lodge URB1 (62 Player Street)", "Adam & Burton House (Student Lodge URB6)",
+      "Carlton House (Student Lodge URB2)", "Provident Works (Student Lodge URB12)",
+      "New Brook House / Student Lodge", "Student Lodge URB10"
+    ]
+  },
+  {
+    key: "saviours", label: "Saviours of Men", color: "#16a085",
+    names: ["Winfield Court", "The Vantage"]
+  },
+  {
+    key: "sweet", label: "Sweet Influences", color: "#d63384",
+    names: ["Winfield Court", "IQ Nelson Court"]
+  }
+];
+const UNASSIGNED_COLOR = "#5c6670";
+
+// Move-in date from the supplied accommodation list. These places are marked
+// with a white centre and a coloured outer ring on the outreach map.
+const moveIn12SepNames = new Set([
+  "iQ Newtown House",
+  "iQ Exchange",
+  "Fusion Nottingham",
+  "Student Roost Hydrogen",
+  "Prestige Straits Village",
+  "Study Inn Talbot Street",
+  "Fabric",
+  "Lace Market Studios",
+  "Hockley Point (also listed as Mansion Place)",
+  "Avalon Court",
+  "Halifax House",
+  "Nova",
+  "Talbot Point",
+  "Bowman House",
+  "True Student",
+  "iQ Newland House",
+  "Kaplan",
+  "Arcadian",
+  "The Waterways",
+  "iQ Signal Place",
+  "The Vantage",
+  "The Place (Prestige Student Living)",
+  "Winfield Court",
+  "The Laceworks",
+  "Redgate",
+  "Prestige Crown Place",
+  "Miura (Prestige Student Living)",
+  "Curzon House",
+  "The Glasshouse",
+  "Peverell",
+  "Centre Court",
+  "Corner Point",
+  "Russell View",
+  "Deakins Place",
+  "Riverside Point",
+  "Graystacks",
+  "Beckton House",
+  "Student Lodge URB1 (62 Player Street)",
+  "Adam & Burton House (Student Lodge URB6)",
+  "Provident Works (Student Lodge URB12)",
+  "Student Lodge URB10"
+]);
+
+// Keep the supplied records untouched. Resolve known aliases explicitly.
+const aliases = {Kaplan:'Bromley Place Kaplan Living'};
+const canonical = name => aliases[name] || name;
+const moveNames = new Set([...moveIn12SepNames].map(canonical));
+const buildings = Object.entries(data).flatMap(([category, places]) => places.map(p => ({...p, category})));
+const groupsFor = p => outreachGroups.filter(g => g.names.some(n => canonical(n) === p.name));
+const unresolved = [...moveNames].filter(n => !buildings.some(p => p.name === n));
+const normalize = s => s.normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+const escapeHTML = s => String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const mobile = matchMedia('(max-width:760px)');
+const reduced = matchMedia('(prefers-reduced-motion:reduce)');
+const views = [];
+let active = 0;
+const uonAreas = [
+  {
+    "key": "midland",
+    "label": "Midland Way",
+    "color": "#2e86de",
+    "names": [
+      "Student Roost Nottingham Two",
+      "St Peters Court",
+      "Deakins Place",
+      "Acis Students: Raleigh Park",
+      "Riverside Point",
+      "Bridgeside",
+      "Student Roost Morriss House",
+      "Graystacks"
+    ]
+  },
+  {
+    "key": "beeston",
+    "label": "Beeston",
+    "color": "#b77922",
+    "names": [
+      "Beckton House",
+      "Broadgate Park"
+    ]
+  },
+  {
+    "key": "park",
+    "label": "University Park",
+    "color": "#2e9e46",
+    "names": [
+      "Ancaster Hall",
+      "Cavendish Hall",
+      "Cripps Hall",
+      "Derby Hall",
+      "Florence Boot Hall",
+      "Lenton & Wortley Hall",
+      "Lincoln Hall",
+      "Nightingale Hall",
+      "Rutland Hall",
+      "Sherwood Hall",
+      "Willoughby Hall"
+    ]
+  },
+  {
+    "key": "jubilee",
+    "label": "Jubilee Campus",
+    "color": "#8e44ad",
+    "names": [
+      "Melton Hall",
+      "Newark Hall",
+      "Southwell Hall"
+    ]
+  }
+];
+const uonMoveInNames = new Set(uonAreas.flatMap(a=>a.names));
+const uonNotes = {Graystacks:"Fewer people moving in (your note)", "Beckton House":"New accommodation · popular (your note)"};
+
+function makeView(id, outreach, uon = false) {
+  const panel = document.createElement('section');
+  panel.id=id; panel.className='panel'; panel.setAttribute('role','tabpanel'); panel.setAttribute('aria-labelledby',id+'-tab'); panel.hidden=outreach || uon;
+  panel.innerHTML=`<button class="backdrop" hidden aria-label="Close building list" tabindex="-1"></button><aside class="sidebar" aria-label="${outreach?'Outreach':'Accommodation'} buildings"><div class="intro"><button class="close" aria-label="Close building list">×</button><div class="eyebrow">${outreach?'12 September · supplied list':'Explore Nottingham'}</div><h${outreach?'2':'1'}>${outreach?'Move-in & outreach':'A place to call home'}</h${outreach?'2':'1'}><p>${outreach?'Find buildings and their outreach teams.':'University halls and private accommodation.'}</p></div><div class="search"><label for="${id}-search">Search buildings or groups</label><div class="search-row"><input id="${id}-search" type="search" aria-label="Search buildings or groups" autocomplete="off" placeholder="Try Talbot Street…"><button class="clear" aria-label="Clear search">Clear</button></div>${outreach?`<label class="sr-only" for="outreach-scope">Outreach scope</label><select id="outreach-scope" class="scope"><option value="date">12 September move-in list</option><option value="assigned">All assigned outreach buildings</option><option value="all">All accommodation</option></select>`:''}</div><div class="summary" role="status" aria-live="polite"></div><div class="list"></div>${outreach?`<details class="note"><summary>About this move-in list</summary><p>Dates and capacities are from the supplied data; no year was specified. White-centred pins mark 12 September. Split colours indicate shared teams.</p><p>“Kaplan” is linked to Bromley Place Kaplan Living. ${unresolved.map(escapeHTML).join(', ')} has no matching record and is not plotted. Other source records and coordinates are unchanged.</p></details>`:''}</aside><div class="map-area"><div class="toolbar"><button class="button toggle" aria-controls="${id}-sidebar">☰ Buildings</button><span class="map-caption">${outreach?'Plan your visits':'Nottingham & campuses'}</span></div><div class="stage"><div class="map" id="${id}-map" aria-label="${outreach?'Outreach':'Accommodation'} map"></div><div class="zoom" aria-label="Map zoom"><button class="button plus" aria-label="Zoom in">+</button><button class="button minus" aria-label="Zoom out">−</button></div></div><div class="actions"><button class="button fit">Fit visible pins</button><button class="button locate" aria-pressed="false">◎ My location</button></div><div class="status" role="status" aria-live="polite"></div><div class="attribution"><a href="https://leafletjs.com" target="_blank" rel="noopener">Leaflet</a> · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a></div></div>`;
+  document.querySelector('main').append(panel);
+  const $ = s=>panel.querySelector(s);
+  const v={id,outreach,uon,panel,$,map:null,markers:new Map(),visible:[],selected:null,stopLocate:()=>{},open:!mobile.matches};
+  $('.sidebar').id=id+'-sidebar';
+  v.setOpen=(open,focus=false)=>{v.open=open;$('.sidebar').hidden=!open;$('.backdrop').hidden=!(open&&mobile.matches);$('.toggle').setAttribute('aria-expanded',String(open));if(mobile.matches){$('.map-area').inert=open;document.querySelector('header').inert=open;$('.sidebar').setAttribute('role',open?'dialog':'complementary');if(open)$('.sidebar').setAttribute('aria-modal','true');else $('.sidebar').removeAttribute('aria-modal');}else{$('.map-area').inert=false;document.querySelector('header').inert=false;$('.sidebar').removeAttribute('role');$('.sidebar').removeAttribute('aria-modal');}if(focus)(open?$('.close'):$('.toggle')).focus();requestAnimationFrame(()=>size(v));};
+  $('.toggle').onclick=()=>v.setOpen(!v.open,true);$('.close').onclick=$('.backdrop').onclick=()=>v.setOpen(false,true);
+  panel.addEventListener('keydown',e=>{if(mobile.matches&&v.open){if(e.key==='Escape'){e.preventDefault();v.setOpen(false,true);}if(e.key==='Tab'){const focusable=[...$('.sidebar').querySelectorAll('button,input,select,summary,a')].filter(el=>el.getClientRects().length&&!el.disabled);const first=focusable[0],last=focusable.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}}});
+  if(uon){
+    $('.eyebrow').textContent='Your accommodation shortlist';
+    $('h1').textContent='UoN Move In Day';
+    $('.intro p').textContent='Selected halls and accommodation for UoN move-in.';
+    $('.map-caption').textContent='UoN move-in locations';
+    $('.map').setAttribute('aria-label','UoN Move In Day accommodation map');
+    const note=document.createElement('details');note.className='note';
+    note.innerHTML='<summary>About this shortlist</summary><p>24 mapped buildings, grouped by your supplied areas. Raleigh Park uses the existing Acis Students: Raleigh Park record.</p><p>Student Lodge (Beeston) is on your list but needs an exact building or address before it can be plotted. Midland Way is an area heading. No move-in date was specified.</p>';
+    $('.sidebar').append(note);
+  }
+  v.cats=uon?uonAreas:outreach?[...outreachGroups,{key:'unassigned',label:'Not on the outreach list',color:UNASSIGNED_COLOR}]:categories.filter(c=>!uon || buildings.some(p=>p.category===c.key && uonMoveInNames.has(p.name)));
+  v.enabled=new Set(v.cats.map(c=>c.key));
+  v.groupEls=v.cats.map((cat,i)=>{const group=document.createElement('section');group.className='group';group.innerHTML=`<div class="group-head"><label><input type="checkbox" checked aria-label="Show ${escapeHTML(cat.label)}"></label><button aria-expanded="true" aria-controls="${id}-list-${i}"><span class="swatch" style="background:${cat.color}"></span>${escapeHTML(cat.label)}<span class="count"></span><span aria-hidden="true">⌄</span></button></div><ul class="places" id="${id}-list-${i}"></ul>`;$('.list').append(group);const button=group.querySelector('button');button.onclick=()=>{const ul=group.querySelector('ul');ul.hidden=!ul.hidden;button.setAttribute('aria-expanded',String(!ul.hidden));};group.querySelector('input').onchange=e=>{e.target.checked?v.enabled.add(cat.key):v.enabled.delete(cat.key);update(v);};return group;});
+  const empty=document.createElement('div');empty.className='empty';empty.textContent='No buildings match. Clear your search or enable another group.';$('.list').append(empty);
+  $('input[type=search]').oninput=()=>update(v);$('.clear').onclick=()=>{$('input[type=search]').value='';update(v);$('input[type=search]').focus();};$('input[type=search]').onkeydown=e=>{if(e.key==='Enter'&&v.visible.length){select(v,v.visible[0]);}};
+  if(outreach)$('select').onchange=()=>{update(v);fit(v);};
+  $('.fit').onclick=()=>fit(v);$('.plus').onclick=()=>v.map?.zoomIn();$('.minus').onclick=()=>v.map?.zoomOut();
+  v.setOpen(v.open);update(v);return v;
+}
+function membership(v,p){if(v.uon)return uonAreas.filter(a=>a.names.includes(p.name)).map(a=>a.key);if(!v.outreach)return [p.category];const gs=groupsFor(p);return gs.length?gs.map(g=>g.key):['unassigned'];}
+function update(v){
+  const q=normalize(v.$('input[type=search]').value),tokens=q.split(' ').filter(Boolean),scope=v.outreach?v.$('select').value:'all';
+  const candidates=buildings.filter(p=>!v.uon || uonMoveInNames.has(p.name)).filter(p=>(scope!=='date'||moveNames.has(p.name))&&(scope!=='assigned'||groupsFor(p).length)).filter(p=>{const text=normalize([p.name,categories.find(c=>c.key===p.category).label,...(v.uon?uonAreas.filter(a=>a.names.includes(p.name)).map(a=>a.label):[]),...(v.outreach?groupsFor(p).map(g=>g.label):[]),...Object.keys(aliases).filter(a=>aliases[a]===p.name)].join(' '));return tokens.every(t=>text.includes(t));});
+  v.visible=candidates.filter(p=>membership(v,p).some(k=>v.enabled.has(k)));
+  v.groupEls.forEach((el,i)=>{const cat=v.cats[i],list=candidates.filter(p=>membership(v,p).includes(cat.key));el.hidden=Boolean(q)&&list.length===0;el.querySelector('.count').textContent=list.length;el.querySelector('ul').replaceChildren();if(q){el.querySelector('ul').hidden=false;el.querySelector('button').setAttribute('aria-expanded','true');}list.sort((a,b)=>a.name.localeCompare(b.name)).forEach(p=>{const li=document.createElement('li'),button=document.createElement('button');button.className='place';button.textContent=p.name;button.classList.toggle('selected',v.selected===p.name);if(v.uon && uonNotes[p.name]){const small=document.createElement('small');small.textContent=uonNotes[p.name];button.append(small);}if(v.outreach){const small=document.createElement('small');small.textContent=groupsFor(p).map(g=>g.label).join(' + ')||'Unassigned';button.append(small);}button.onclick=()=>{if(!v.enabled.has(cat.key)){v.enabled.add(cat.key);el.querySelector('input').checked=true;update(v);}select(v,p);};li.append(button);el.querySelector('ul').append(li);});});
+  v.$('.summary').textContent=`${v.visible.length} unique building${v.visible.length===1?'':'s'} shown${q?' · search active':''}`;
+  v.$('.empty').hidden=v.visible.length>0;v.$('.clear').disabled=!q;v.$('.fit').disabled=!v.visible.length;
+  if(v.map){v.cluster.clearLayers();v.cluster.addLayers(v.visible.map(p=>v.markers.get(p.name)));}
+}
+function size(v){if(v.panel.hidden)return;const stage=v.$('.stage');const side=Math.max(80,Math.min(stage.clientWidth,stage.clientHeight-24,900));const el=v.$('.map');el.style.width=mobile.matches?'100%':side+'px';el.style.height=mobile.matches?'100%':side+'px';v.map?.invalidateSize({pan:false});}
+function fit(v){if(!v.map||!v.visible.length)return;size(v);const side=v.$('.map').clientWidth;v.map.fitBounds(v.visible.map(p=>[p.lat,p.lng]),{paddingTopLeft:mobile.matches?[35,110]:[Math.max(30,side*.18),Math.max(30,side*.18)],paddingBottomRight:mobile.matches?[60,145]:[Math.max(30,side*.18),Math.max(30,side*.18)],maxZoom:16,animate:!reduced.matches});}
+function select(v,p){v.selected=p.name;if(mobile.matches)v.setOpen(false,true);if(!v.map){v.$('.status').textContent='Map unavailable. Restore your connection and reload to view pins.';return;}requestAnimationFrame(()=>{size(v);const marker=v.markers.get(p.name);v.map.setView([p.lat,p.lng],17,{animate:false});v.cluster.zoomToShowLayer(marker,()=>{marker.openPopup();});});v.$('.status').textContent=p.name;v.panel.querySelectorAll('.place').forEach(b=>b.classList.toggle('selected',b.firstChild.textContent===p.name));}
+function init(v){if(v.map)return;size(v);if(!window.L){v.$('.map').innerHTML='<div class="error">The map could not load. Check your connection and reload. The building list is still available.</div>';v.$('.locate').disabled=true;v.$('.plus').disabled=v.$('.minus').disabled=true;return;}
+  v.map=L.map(v.id+'-map',{zoomControl:false,attributionControl:false,minZoom:2,maxZoom:19,zoomSnap:.25,zoomAnimation:!reduced.matches,fadeAnimation:!reduced.matches}).setView([52.955,-1.16],12);
+  const tiles=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19});let tileFailure=false;tiles.on('tileerror',()=>{tileFailure=true;v.$('.status').textContent='Some map tiles could not load. Check your connection; building pins and search remain available.';});tiles.on('tileload',()=>{if(tileFailure){tileFailure=false;v.$('.status').textContent='Map connection restored.';}});tiles.addTo(v.map);
+  // Clustering also lets users separate records with identical coordinates.
+  v.cluster=L.markerClusterGroup?L.markerClusterGroup({maxClusterRadius:38,showCoverageOnHover:false,animate:!reduced.matches,iconCreateFunction:c=>L.divIcon({className:'',html:`<div class="cluster">${c.getChildCount()}</div>`,iconSize:[36,36]})}):L.featureGroup();
+  if(!v.cluster.addLayers){v.cluster.addLayers=ms=>ms.forEach(m=>v.cluster.addLayer(m));v.cluster.zoomToShowLayer=(m,cb)=>cb();}
+  v.cluster.addTo(v.map);
+  buildings.forEach(p=>{const gs=groupsFor(p),colors=v.uon?[uonAreas.find(a=>a.names.includes(p.name))?.color || '#526564']:v.outreach?(gs.length?gs.map(g=>g.color):[UNASSIGNED_COLOR]):[categories.find(c=>c.key===p.category).color];const bg=colors.length===1?colors[0]:`conic-gradient(${colors.map((c,i)=>`${c} ${i/colors.length*100}% ${(i+1)/colors.length*100}%`).join(',')})`;const marker=L.marker([p.lat,p.lng],{title:p.name,alt:p.name,icon:L.divIcon({className:'',html:`<div class="pin ${v.outreach&&moveNames.has(p.name)?'move':''}" style="background:${bg}"></div>`,iconSize:[24,24],iconAnchor:[12,12]})});
+    const cap=p.capacity==null?'Not listed':typeof p.capacity==='number'?`~${p.capacity.toLocaleString('en-GB')} students`:`${p.capacity} students`;
+    marker.bindPopup(`<b>${escapeHTML(p.name)}</b><br>${escapeHTML(v.uon?(uonAreas.find(a=>a.names.includes(p.name))?.label || ''):v.outreach?(gs.map(g=>g.label).join(' + ')||'Not on the outreach list'):categories.find(c=>c.key===p.category).label)}${v.outreach&&moveNames.has(p.name)?'<br>Move-in: 12 September (supplied list)':''}${v.uon&&uonNotes[p.name]?'<br>'+escapeHTML(uonNotes[p.name]):''}<br>Capacity: ${escapeHTML(cap)}<br><a target="_blank" rel="noopener" href="https://maps.apple.com/?ll=${p.lat},${p.lng}&q=${encodeURIComponent(p.name)}">Open in Apple Maps ↗</a>`,{maxWidth:230,autoPanPadding:[45,45]});marker.on('popupopen',()=>{v.selected=p.name;v.$('.status').textContent=p.name;});v.markers.set(p.name,marker);
+  });update(v);fit(v);attachLocation(v);
+}
+function attachLocation(v){let watch=null,marker=null,circle=null,generation=0;const btn=v.$('.locate');
+  v.stopLocate=()=>{generation++;if(watch!==null)navigator.geolocation.clearWatch(watch);watch=null;if(marker)v.map.removeLayer(marker);if(circle)v.map.removeLayer(circle);marker=circle=null;btn.setAttribute('aria-pressed','false');btn.textContent='◎ My location';};
+  btn.onclick=()=>{if(watch!==null){v.stopLocate();v.$('.status').textContent='Location stopped.';return;}if(!navigator.geolocation||!window.isSecureContext){v.$('.status').textContent='Location requires HTTPS or localhost and a browser with location support.';return;}const session=++generation;btn.setAttribute('aria-pressed','true');btn.textContent='Stop locating';v.$('.status').textContent='Finding your location…';watch=navigator.geolocation.watchPosition(pos=>{if(session!==generation)return;const {latitude,longitude,accuracy}=pos.coords,ll=[latitude,longitude];if(!marker){marker=L.circleMarker(ll,{radius:7,color:'white',weight:3,fillColor:'#1765bf',fillOpacity:1}).addTo(v.map).bindPopup('Your location');circle=L.circle(ll,{radius:accuracy,color:'#1765bf',weight:1,fillOpacity:.1}).addTo(v.map);v.map.setView(ll,15,{animate:!reduced.matches});}else{marker.setLatLng(ll);circle.setLatLng(ll).setRadius(accuracy);}v.$('.status').textContent=`Location accuracy: approximately ${Math.round(accuracy)} m. Location is not saved; map tiles load from OpenStreetMap.`;},err=>{if(session!==generation)return;v.stopLocate();v.$('.status').textContent=err.code===1?'Location permission was denied. Allow location in your browser settings and try again.':err.code===3?'Location timed out. Check your signal and try again.':'Location unavailable. Check your device location settings and try again.';},{enableHighAccuracy:true,timeout:15000,maximumAge:10000});};
+}
+views.push(makeView('campus',false),makeView('uon',false,true));
+const tabs=[...document.querySelectorAll('[role=tab]')];
+function activate(index){views[active].stopLocate();active=index;tabs.forEach((t,i)=>{t.setAttribute('aria-selected',String(i===index));t.tabIndex=i===index?0:-1;views[i].panel.hidden=i!==index;});requestAnimationFrame(()=>{init(views[index]);size(views[index]);});}
+tabs.forEach((t,i)=>{t.onclick=()=>activate(i);t.onkeydown=e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();const next=e.key==='Home'?0:e.key==='End'?tabs.length-1:(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;tabs[next].focus();activate(next);}};});
+const observer=new ResizeObserver(()=>size(views[active]));views.forEach(v=>observer.observe(v.$('.stage')));
+mobile.addEventListener('change',()=>views.forEach(v=>v.setOpen(!mobile.matches)));
+window.addEventListener('pagehide',()=>views.forEach(v=>v.stopLocate()));
+document.addEventListener('visibilitychange',()=>{if(document.hidden)views.forEach(v=>{v.stopLocate();v.$('.status').textContent='';});});
+activate(0);
+
+// Keep the search sheet within the visible area when the phone keyboard opens.
+function syncPhoneViewport(){
+  const page=document.getElementById('page');
+  page.style.height=mobile.matches && window.visualViewport ? window.visualViewport.height+'px' : '';
+}
+window.visualViewport?.addEventListener('resize',syncPhoneViewport);
+window.addEventListener('resize',syncPhoneViewport);
+syncPhoneViewport();
+
+</script></body></html>
